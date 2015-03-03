@@ -28,3 +28,4 @@ object Build extends Build {
       exportJars := true,
       jarName in assembly := "search",
       excludedJars in assembly <<= unmanagedJars in Compile)
+}
