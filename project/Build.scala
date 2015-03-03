@@ -18,7 +18,7 @@ object Build extends Build {
 
   lazy val jna = "net.java.dev.jna" % "jna" % "3.2.7" % "provided"
 
-
+/*
   lazy val root = Project(
     "search",
     file("."),
@@ -27,5 +27,5 @@ object Build extends Build {
       unmanagedBase := file(ev3Home) / "lib" / "ev3",
       exportJars := true,
       jarName in assembly := "search",
-      excludedJars in assembly <<= unmanagedJars in Compile)
+      excludedJars in assembly <<= unmanagedJars in Compile)*/
 }
