@@ -9,6 +9,14 @@ object RandomNav {
     val distances:  Stream[Int]         = Random nextInt(maxDist)   :: distances
     val moves:      Stream[(Int,Int)]   = headings zip distances
 
-    def main(argv: Array[String]) = moves.foreach{ (heading, dist) => ??? }
+    val pilot = searchbot getPilot
+
+    def main(argv: Array[String]) = moves foreach{
+        // TODO: break on button press
+        // TODO: possibly some kind of collision avoidance?
+        (heading, dist) =>
+            pilot rotate heading
+            pilot travel dist
+    }
 
 }
