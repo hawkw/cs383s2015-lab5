@@ -4,7 +4,7 @@ import scala.util.Random.nextInt
 import lejos.hardware.BrickFinder
 import lejos.hardware.ev3.EV3
 
-object RandomNav extends App {
+object RandomNav {
 
     val maxDist = 50 // TODO: placeholder, replace this with correct values
     val keys    = BrickFinder.getLocal.asInstanceOf[EV3].getKeys

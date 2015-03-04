@@ -1,5 +1,5 @@
 package edu.allegheny.searchbot;
 
-object Search extends App {
+object Search {
     // TODO: implement me pls
 }
