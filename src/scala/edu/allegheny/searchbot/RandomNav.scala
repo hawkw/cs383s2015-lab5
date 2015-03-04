@@ -6,13 +6,14 @@ import lejos.hardware.ev3.EV3
 
 object RandomNav {
 
-    val maxDist = 50 // TODO: placeholder, replace this with correct values
+    val maxDist = 50 // TODO: placeholder, replace this with correct distance
     val keys    = BrickFinder.getLocal.asInstanceOf[EV3].getKeys
     val moves   = Stream continually ((nextInt(360), nextInt(maxDist), keys readButtons))
-    val pilot   = searchbot getPilot
+    val pilot   = searchbot getPilot // package object handles this
 
     def main(argv: Array[String]) = moves
     takeWhile {
+        // if no buttons were pressed, buttons should be zero
         (_,_,buttons) => buttons == 0
     } foreach {
         // TODO: possibly some kind of collision avoidance?

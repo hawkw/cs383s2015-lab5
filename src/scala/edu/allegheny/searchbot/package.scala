@@ -11,6 +11,12 @@ object searchbot {
     val WheelDiam   = 2.0625f
     val TrackWidth  = 4.75f
 
+    /**
+     * Makes a DifferentialPilot for this robot configuration
+     * @type {DifferentialPilot}
+     * @return an instance of DifferentialPilot configured for the
+     *         robot's hardware configuration
+     */
     def getPilot = new DifferentialPilot(
             WheelDiam,
             TrackWidth,
