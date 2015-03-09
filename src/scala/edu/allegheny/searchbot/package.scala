@@ -2,12 +2,24 @@ package edu.allegheny.searchbot;
 
 import lejos.hardware.ev3.EV3
 import lejos.hardware.motor.EV3LargeRegulatedMotor
+import lejos.hardware.sensor.{EV3UltrasonicSensor,EV3GyroSensor}
 import lejos.hardware.port.{MotorPort, SensorPort, Port}
 import lejos.robotics.navigation.DifferentialPilot
 
+/**
+ * Contains common constants and functions for both programs.
+ * @author Hawk Weisman
+ */
 object searchbot {
-    val LMotorPort  = MotorPort.B // change as appropriate
-    val RMotorPort  = MotorPort.C // change as appropriate
+    // Port assignment for sensors and motors
+    // Change these as appropriate
+    val LMotorPort      = MotorPort.B
+    val RMotorPort      = MotorPort.C
+    val UltrasonicPort  = SensorPort.1
+    val GyroPort        = SensorPort.2
+
+    // Robot physical constants
+    // change as appropriate
     val WheelDiam   = 2.0625f
     val TrackWidth  = 4.75f
 
@@ -23,5 +35,23 @@ object searchbot {
             new EV3LargeRegulatedMotor(LMotorPort),
             new EV3LargeRegulatedMotor(RMotorPort)
         )
+    /**
+     * Instantiates an
+     * [[lejos.hardware.sensor.EV3UltrasonicSensor UltrasonicSensor]] and
+     *  returns that sensor's distance mode sample provider.
+     * @type {EV3UltrasonicSensor}
+     * @return a [[lejos.robotics.SampleProvider SampleProvider]] for distance
+     *         samples
+     */
+    def getDistanceMode = new EV3UltrasonicSensor(UltrasonicPort) getDistanceMode
+    /**
+     * Instantiates an
+     * [[lejos.hardware.sensor.EV3GyroSensor GyroSensor]] and
+     *  returns that sensor's distance mode sample provider.
+     * @type {EV3UltrasonicSensor}
+     * @return a [[lejos.robotics.SampleProvider SampleProvider]] for distance
+     *         samples
+     */
+    def getAngleMode    = new EV3GyroSensor(GyroPort) getAngleMode
 
 }
