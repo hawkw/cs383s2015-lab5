@@ -5,10 +5,21 @@ package edu.allegheny.searchbot;
  * @author Hawk Weisman
  */
 object Search {
+    // robot bits
     val angleProvider = searchbot getAngleMode
     val rangeProvider = searchbot getDistanceMode
-    val MaxRange = 50.0f // change as appropriate
+    val pilot         = searchbot getPilot
+
+    // Constants, change as appropriate
+    val MaxRange = 50.0f // maximum search radius for the environment
+    val MaxIter  = 1000 // maximum number of iterations for search
+
     private val sample = new Array[Float](2) // this is because the LeJOS api is awful
+
+    def turnAndRange(angle: Int): Option[(Float,Float)] = {
+        pilot rotate heading
+        range
+    }
 
     /**
      * Gets a range from the ultrasonic sensor and the current heading
@@ -26,5 +37,12 @@ object Search {
         }
     }
 
+    def main (argv: Attay[String]) = for {
+            angle <- 0 until MaxIter
+            range <- turnAndRange(angle % 90)
+        } {
+            // this block will execute when we find the target
+            // TODO: put target tracking code here.
+        }
 
 }
