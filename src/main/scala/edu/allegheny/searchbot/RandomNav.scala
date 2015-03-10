@@ -13,10 +13,10 @@ object RandomNav {
 
     def main(argv: Array[String]) = moves takeWhile {
         // if no buttons were pressed, buttons should be zero
-        (_,_,buttons) => buttons == 0
+        case (_,_,buttons) => buttons == 0
     } foreach {
         // TODO: possibly some kind of collision avoidance?
-        (heading, dist, _) =>
+        case (heading, dist, _) =>
             pilot rotate heading
             pilot travel dist
     }
