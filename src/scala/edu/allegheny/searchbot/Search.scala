@@ -37,7 +37,7 @@ object Search {
         }
     }
 
-    def main (argv: Attay[String]) = for {
+    def main (argv: Array[String]) = for {
             angle <- 0 until MaxIter
             range <- turnAndRange(angle % 90)
         } {
