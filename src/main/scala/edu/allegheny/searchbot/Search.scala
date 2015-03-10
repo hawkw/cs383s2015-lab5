@@ -17,7 +17,7 @@ object Search {
     private val sample = new Array[Float](2) // this is because the LeJOS api is awful
 
     def turnAndRange(angle: Int): Option[(Float,Float)] = {
-        pilot rotate heading
+        pilot rotate angle
         range
     }
 
