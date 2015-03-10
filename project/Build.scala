@@ -26,6 +26,6 @@ object Build extends Build {
     .settings(
       unmanagedBase := file(ev3Home) / "lib" / "ev3",
       exportJars := true,
-      jarName in assembly := "RandomNav",
+      jarName in assembly := "RandomNav.jar",
       excludedJars in assembly <<= unmanagedJars in Compile)
 }
