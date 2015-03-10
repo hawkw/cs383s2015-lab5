@@ -1,4 +1,5 @@
 package edu.allegheny.searchbot;
+import scala.language.postfixOps
 
 /**
  * The search program.

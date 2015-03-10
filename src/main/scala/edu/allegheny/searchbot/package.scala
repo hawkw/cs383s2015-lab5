@@ -6,6 +6,9 @@ import lejos.hardware.sensor.{EV3UltrasonicSensor,EV3GyroSensor}
 import lejos.hardware.port.{MotorPort, SensorPort, Port}
 import lejos.robotics.navigation.DifferentialPilot
 
+
+import scala.language.postfixOps
+
 /**
  * Contains common constants and functions for both programs.
  * @author Hawk Weisman

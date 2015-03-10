@@ -1,6 +1,7 @@
 package edu.allegheny.searchbot;
 
 import scala.util.Random.nextInt
+import scala.language.postfixOps
 import lejos.hardware.BrickFinder
 import lejos.hardware.ev3.EV3
 
