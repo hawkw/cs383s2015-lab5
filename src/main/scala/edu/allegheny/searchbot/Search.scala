@@ -32,7 +32,7 @@ object Search {
         rangeProvider fetchSample (sample)
         angleProvider fetchSample (sample,1)
         sample match {
-            case Array(range, angle) if range <= maxRange   => Some((range,angle))
+            case Array(range, angle) if range <= MaxRange   => Some((range,angle))
             case _                                          => None
         }
     }
