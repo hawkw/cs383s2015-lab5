@@ -1,13 +1,21 @@
 package edu.allegheny.searchbot;
 
-import scala.language.postfixOps
+import scala.language.{postfixOps, implicitConversions}
 import scala.math;
 
 /**
  * The search program.
  * @author Hawk Weisman
+ * @author Willem Yarbrough
  */
 object Search {
+
+    class FloatWithExp(self:Float) {
+        def ~* (other: Float) = math.pow(self,other)
+    }
+
+    implicit def addExpToFloat(it: Float): FloatWithExp = new FloatWithExp(it)
+
     // robot bits
     val angleProvider = searchbot getAngleMode
     val rangeProvider = searchbot getDistanceMode
@@ -19,8 +27,8 @@ object Search {
 
     private val sample = new Array[Float](2) // this is because the LeJOS api is awful
 
-    type Vector     = (Float,Float)
-    type Coordinate = (Float,Float)
+    type Vector     = Tuple2[Float,Float]
+    type Coordinate = Tuple2[Float,Float]
 
     def turnAndRange(angle: Int): Option[(Float,Float)] = {
         pilot rotate angle
@@ -44,34 +52,37 @@ object Search {
     }
 
     def toCartesian(v: Vector): Coordinate = {
-        case (r, theta) => (r * Math.cos(theta), r * Math.sin(theta))
+        v match { case (r, theta) => (
+            r * Math.cos(theta.asInstanceOf[Double]).asInstanceOf[Float],
+            r * Math.sin(theta.asInstanceOf[Double]).asInstanceOf[Float]
+            ) }
     }
 
     def estimateDestination(loc1: Coordinate, loc2: Coordinate): Coordinate = {
-        case ((x1,y1), (x2,y2)) =>
+        (loc1, loc2) match { case ((x1,y1), (x2,y2)) =>
             val deltaX = x2 - x1
             val deltaY = y2 - y1
-            (x2 + deltaX, y2 + deltaY)
+            (x2 + deltaX, y2 + deltaY) }
     }
 
     def distance(loc1: Coordinate, loc2: Coordinate): Float = {
-        case((x1,y1),(x2,y2)) => Math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+        (loc1, loc2) match {
+        case((x1,y1),(x2,y2)) => Math.sqrt(((x2 - x1)~*2 + (y2 - y1)~*2).asInstanceOf[Double]).asInstanceOf[Float] }
     }
 
     def getHeadingAngle(loc1: Coordinate, loc2: Coordinate): Float = {
         val a = distance(loc2,loc1)
         val b = distance(loc2,(0,0))
         val c = distance(loc3,(0,0))
-        Math.acos((b**2 + c**2 - a**2) / 2*b*c)
+        Math.acos(((b~*2 + c~*2 - a~*2) / 2*b*c).asInstanceOf[Double]).asInstanceOf[Float]
     }
 
-    def main (argv: Array[String]): Unit = for {
+    def main (argv: Array[String]): Unit = {
+        for {
             angle <- 0 until MaxIter
-            range <- turnAndRange(angle % 90)
         } {
-            // this block will execute when we find the target
-            // TODO: put target tracking code here.
+            //val vec = turnAndRange angle
         }
-    }*/
+    }
 
 }
