@@ -1,6 +1,7 @@
 package edu.allegheny.searchbot;
 
 import scala.language.postfixOps
+import scala.math;
 
 /**
  * The search program.
@@ -17,6 +18,9 @@ object Search {
     val MaxIter  = 1000 // maximum number of iterations for search
 
     private val sample = new Array[Float](2) // this is because the LeJOS api is awful
+
+    type Vector     = (Float,Float)
+    type Coordinate = (Float,Float)
 
     def turnAndRange(angle: Int): Option[(Float,Float)] = {
         pilot rotate angle
@@ -38,9 +42,30 @@ object Search {
             case _                                          => None
         }
     }
-/*
-    def main (argv: Array[String]) {
-        for {
+
+    def toCartesian(v: Vector): Coordinate = {
+        case (r, theta) => (r * Math.cos(theta), r * Math.sin(theta))
+    }
+
+    def estimateDestination(loc1: Coordinate, loc2: Coordinate): Coordinate = {
+        case ((x1,y1), (x2,y2)) =>
+            val deltaX = x2 - x1
+            val deltaY = y2 - y1
+            (x2 + deltaX, y2 + deltaY)
+    }
+
+    def distance(loc1: Coordinate, loc2: Coordinate): Float = {
+        case((x1,y1),(x2,y2)) => Math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    }
+
+    def getHeadingAngle(loc1: Coordinate, loc2: Coordinate): Float = {
+        val a = distance(loc2,loc1)
+        val b = distance(loc2,(0,0))
+        val c = distance(loc3,(0,0))
+        Math.acos((b**2 + c**2 - a**2) / 2*b*c)
+    }
+
+    def main (argv: Array[String]): Unit = for {
             angle <- 0 until MaxIter
             range <- turnAndRange(angle % 90)
         } {
