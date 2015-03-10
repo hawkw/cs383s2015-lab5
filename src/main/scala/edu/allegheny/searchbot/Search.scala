@@ -29,7 +29,7 @@ object Search {
      * @type {Option[(Float,Float)]}
      */
     def range: Option[(Float,Float)] = {
-        rangeProvider fetchSample (sample)
+        rangeProvider fetchSample (sample,0)
         angleProvider fetchSample (sample,1)
         sample match {
             case Array(range, angle) if range <= MaxRange   => Some((range,angle))
