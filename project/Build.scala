@@ -8,10 +8,10 @@ import Defaults.defaultSettings
 
 object Build extends Build {
   lazy val basicSettings = Seq(
-    scalaVersion := "2.11.6",
+    scalaVersion := "2.11.5",
     licenses := Seq(("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))),
     scalacOptions := Seq("-encoding", "UTF-8", "-unchecked", "-deprecation", "-feature"),
-    mainClass in assembly := Some("edu.allegheny.searchbot.Search"),
+    mainClass in assembly := Some("edu.allegheny.searchbot.RandomNav"),
     libraryDependencies += jna)
 
   lazy val ev3Home = Properties.envOrNone("EV3_HOME") getOrElse sys.error("$EV3_HOME environment variable is not defined")
@@ -20,12 +20,12 @@ object Build extends Build {
 
 
   lazy val root = Project(
-    "search",
+    "RandomNav",
     file("."),
     settings = defaultSettings ++ basicSettings ++ assemblySettings)
     .settings(
       unmanagedBase := file(ev3Home) / "lib" / "ev3",
       exportJars := true,
-      jarName in assembly := "search",
+      jarName in assembly := "RandomNav",
       excludedJars in assembly <<= unmanagedJars in Compile)
 }
