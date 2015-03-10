@@ -11,6 +11,7 @@ object Build extends Build {
     scalaVersion := "2.11.5",
     licenses := Seq(("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))),
     scalacOptions := Seq("-encoding", "UTF-8", "-unchecked", "-deprecation", "-feature"),
+    mainClass in (Compile, run) := Some("edu.allegheny.searchbot.RandomNav"),
     mainClass in assembly := Some("edu.allegheny.searchbot.RandomNav"),
     libraryDependencies += jna)
 
@@ -18,14 +19,14 @@ object Build extends Build {
 
   lazy val jna = "net.java.dev.jna" % "jna" % "3.2.7" % "provided"
 
-
   lazy val root = Project(
     "RandomNav",
     file("."),
-    settings = defaultSettings ++ basicSettings ++ assemblySettings)
-    .settings(
+    settings = defaultSettings ++ basicSettings ++ assemblySettings
+    ).settings(
       unmanagedBase := file(ev3Home) / "lib" / "ev3",
       exportJars := true,
       jarName in assembly := "RandomNav.jar",
-      excludedJars in assembly <<= unmanagedJars in Compile)
+      excludedJars in assembly <<= unmanagedJars in Compile
+      ).settings(mainClass in assembly := Some("edu.allegheny.searchbot.RandomNav"))
 }

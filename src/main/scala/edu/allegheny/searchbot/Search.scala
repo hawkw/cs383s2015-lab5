@@ -1,4 +1,5 @@
 package edu.allegheny.searchbot;
+
 import scala.language.postfixOps
 
 /**
@@ -37,13 +38,15 @@ object Search {
             case _                                          => None
         }
     }
-
-    def main (argv: Array[String]) = for {
+/*
+    def main (argv: Array[String]) {
+        for {
             angle <- 0 until MaxIter
             range <- turnAndRange(angle % 90)
         } {
             // this block will execute when we find the target
             // TODO: put target tracking code here.
         }
+    }*/
 
 }

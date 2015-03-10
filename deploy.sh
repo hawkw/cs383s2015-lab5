@@ -1,3 +1,3 @@
 #!/bin/sh
 EV3_USB="10.0.1.1"
-scp target/scala-2.11/randomnav.jar root@$EV3_USB:/home/lejos/programs/
+scp target/scala-2.11/RandomNav.jar root@$EV3_USB:/home/lejos/programs/

@@ -12,14 +12,16 @@ object RandomNav {
     val moves   = Stream continually ((nextInt(360), nextInt(maxDist), keys readButtons))
     val pilot   = searchbot getPilot // package object handles this
 
-    def main(argv: Array[String]) = moves takeWhile {
-        // if no buttons were pressed, buttons should be zero
-        case (_,_,buttons) => buttons == 0
-    } foreach {
-        // TODO: possibly some kind of collision avoidance?
-        case (heading, dist, _) =>
-            pilot rotate heading
-            pilot travel dist
+    def main(args: Array[String]): Unit = {
+        moves takeWhile {
+            // if no buttons were pressed, buttons should be zero
+            case (_,_,buttons) => buttons == 0
+        } foreach {
+            // TODO: possibly some kind of collision avoidance?
+            case (heading, dist, _) =>
+                pilot rotate heading
+                pilot travel dist
+        }
     }
 
 }
