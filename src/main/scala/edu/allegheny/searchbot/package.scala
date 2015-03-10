@@ -15,8 +15,8 @@ object searchbot {
     // Change these as appropriate
     val LMotorPort      = MotorPort.B
     val RMotorPort      = MotorPort.C
-    val UltrasonicPort  = SensorPort.1
-    val GyroPort        = SensorPort.2
+    val UltrasonicPort  = SensorPort.S1
+    val GyroPort        = SensorPort.S2
 
     // Robot physical constants
     // change as appropriate
