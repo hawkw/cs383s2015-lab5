@@ -1,7 +1,8 @@
 package edu.allegheny.searchbot;
 
 import scala.language.{postfixOps, implicitConversions}
-import scala.math;
+import scala.math
+import searchbot._
 
 /**
  * The search program.
@@ -17,9 +18,9 @@ object Search {
     implicit def addExpToFloat(it: Float): FloatWithExp = new FloatWithExp(it)
 
     // robot bits
-    val angleProvider = searchbot getAngleMode
-    val rangeProvider = searchbot getDistanceMode
-    val pilot         = searchbot getPilot
+    val angleProvider = getAngleMode
+    val rangeProvider = getDistanceMode
+    val pilot         = getPilot
 
     // Constants, change as appropriate
     val MaxRange = 50.0f // maximum search radius for the environment
@@ -113,7 +114,7 @@ object Search {
             pos <- toCartesian turnAndRange(angle)
         } { // if we've spotted the target
             pos_prev foreach { // if we've spotted the target previously
-                // TODO: estimate heading & rotate
+
             }
             pos_prev = pos
         }

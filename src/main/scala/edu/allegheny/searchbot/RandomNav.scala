@@ -10,7 +10,7 @@ object RandomNav {
     val maxDist = 50 // TODO: placeholder, replace this with correct distance
     val keys    = BrickFinder.getLocal.asInstanceOf[EV3].getKeys
     val moves   = Stream continually ((nextInt(360), nextInt(maxDist), keys readButtons))
-    val pilot   = searchbot getPilot // package object handles this
+    val pilot   = getPilot // package object handles this
 
     def main(args: Array[String]): Unit = {
         moves takeWhile {
