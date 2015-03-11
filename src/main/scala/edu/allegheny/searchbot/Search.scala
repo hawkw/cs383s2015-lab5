@@ -112,13 +112,13 @@ object Search {
             angle <- 0 until MaxIter
             pos <- turnAndRange(angle, direction) map(toCartesian _)
         } { // if we've spotted the target
-            pos_prev foreach { // if we've spotted the target previously
-                (pos_prev) =>
+            pos_prev map { // if we've spotted the target previously
+                (p1) =>
                     Stream continually ( // as long as we can still see the target
                         turnAndRange(
                             getHeadingDifference(
-                                pos_prev,
-                                estimateDestination(pos_prev, pos)
+                                p1,
+                                estimateDestination(p1, pos)
                             ),
                             direction
                         )
