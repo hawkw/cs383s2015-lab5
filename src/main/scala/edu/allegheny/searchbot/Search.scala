@@ -112,22 +112,20 @@ object Search {
             angle <- 0 until MaxIter
             pos <- turnAndRange(angle, direction) map(toCartesian _)
         } { // if we've spotted the target
-            pos_prev map { // if we've spotted the target previously
-                (p1) =>
-                    Stream continually ( // as long as we can still see the target
-                        turnAndRange(
-                            getHeadingDifference(
-                                p1,
-                                estimateDestination(p1, pos)
-                            ),
-                            direction
-                        )
-                    ) takeWhile(_ isDefined)
+            pos_prev = pos_prev match {
+                case Some(p1) =>  // we've spotted the target previously
+                    (Stream continually { // as long as we can still see the target
+                            turnAndRange(
+                                getHeadingDifference(
+                                    p1,
+                                    estimateDestination(p1, pos)),
+                                direction)
+                        }) takeWhile(_ isDefined) last map(toCartesian _)
+                case None => Some(pos)
             }
             // once we've fallen through the foreach, that means that
             // we've lost sight of the target.
-            pos_prev = Some(pos) // in that case, set the previos position to the current one
-            direction *= -1      // and flip the direction
+            direction *= -1  // then flip the direction
         }
     }
 
