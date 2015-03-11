@@ -109,6 +109,7 @@ object Search {
     def main (argv: Array[String]): Unit = {
         for {
             angle <- 0 until MaxIter
+            vec <- turnAndRange(angle)
         } {
             //val vec = turnAndRange angle
         }
