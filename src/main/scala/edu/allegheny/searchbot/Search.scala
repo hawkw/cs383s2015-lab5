@@ -73,7 +73,7 @@ object Search {
     def getHeadingAngle(loc1: Coordinate, loc2: Coordinate): Float = {
         val a = distance(loc2,loc1)
         val b = distance(loc2,(0,0))
-        val c = distance(loc3,(0,0))
+        val c = distance(loc1,(0,0))
         Math.acos(((b~*2 + c~*2 - a~*2) / 2*b*c).asInstanceOf[Double]).asInstanceOf[Float]
     }
 
