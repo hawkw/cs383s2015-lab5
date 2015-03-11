@@ -1,4 +1,4 @@
-package edu.allegheny.searchbot;
+package edu.allegheny;
 
 import lejos.hardware.ev3.EV3
 import lejos.hardware.motor.EV3LargeRegulatedMotor
@@ -13,7 +13,7 @@ import scala.language.postfixOps
  * Contains common constants and functions for both programs.
  * @author Hawk Weisman
  */
-object searchbot {
+package object searchbot {
     // Port assignment for sensors and motors
     // Change these as appropriate
     val LMotorPort      = MotorPort.B
