@@ -15,23 +15,24 @@ The tracking and evasion strategies we implemented are described in the
 following sections.
 
 ### Evasion Strategy:
-We kept this strategy as simple as possible. Our program "RandomNav" uses an
-infinite stream of random degree and distance values to command the Pilot
+We kept this strategy as simple as possible. Our program `RandomNav` uses an
+infinite stream of random degree and distance values to command the LeJOS `DifferentialPilot`
 object to move the robot in a random walk. That is, the robot rotates for a
 random degree value, then travels for a random distance. It does this until any
 of the robot's buttons are pressed, at which point it exits the main function.
 
 ### Tracking Strategy:
-Obviously, tracking is the more sophisticated task of the two. To surmount the
-issue of tracking a moving target using only one distance sensor, we devised a
+Obviously, tracking is the more sophisticated task of the two. To accomplish the
+difficult task of tracking a moving target using only one distance sensor, we devised a
 way of extrapolating a future position of the target using the currently visible
 location of the target and its last seen location. This meant that our robot
 can turn to face this future position and thus track the target with an
 acceptable degree of reliability.
+
 Note that we assume our target robot uses a constant speed for its evasion
 technique. Therefore, the only events that will cause our robot will lose track
 of its target are the target robot changing its heading or stopping.
-Whenever our robot loses track of its target, it enters a "panic mode", where it
+Whenever our robot loses track of its target, it enters a "panic mode", in which it
 attempts to relocate the target by rotating in progressively widening sweeps
 from left to right and right to left. Once it has relocated the target, it
 resumes its method of predicting the target's future positions.
