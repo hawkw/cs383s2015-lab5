@@ -36,3 +36,14 @@ Whenever our robot loses track of its target, it enters a "panic mode", in which
 attempts to relocate the target by rotating in progressively widening sweeps
 from left to right and right to left. Once it has relocated the target, it
 resumes its method of predicting the target's future positions.
+
+## Project Takeaways
+The most challenging portion of this project was almost certainly the
+implementation of the tracking strategy. The limitation of only one ultrasonic
+sensor presented a significant obstacle that required more complex tracking
+techniques to overcome. These techniques employed trigonometric functions that
+allowed us to calculate the trajectory of the target using limited information.
+Another challenge we faced was the use of Scala to write our programs. Despite
+the divergence from our previous use of Java and Eclipse to write and build our
+programs, we were able to successfully write, build, and upload Scala programs
+that ran on our Mindstorms robot.
