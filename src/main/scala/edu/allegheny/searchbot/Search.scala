@@ -2,8 +2,6 @@ package edu.allegheny.searchbot;
 
 import scala.language.{postfixOps, implicitConversions}
 import scala.math
-import searchbot._
-
 /**
  * The search program.
  * @author Hawk Weisman
@@ -31,7 +29,7 @@ object Search {
     type Vector     = Tuple2[Float,Float]
     type Coordinate = Tuple2[Float,Float]
 
-    def turnAndRange(angle: Int): Option[(Float,Float)] = {
+    def turnAndRange(angle: Int): Option[Vector] = {
         pilot rotate angle
         range
     }
@@ -111,12 +109,12 @@ object Search {
         var pos_prev: Option[Coordinate] = None
         for {
             angle <- 0 until MaxIter
-            pos <- toCartesian turnAndRange(angle)
+            pos <- turnAndRange(angle) map(toCartesian _)
         } { // if we've spotted the target
             pos_prev foreach { // if we've spotted the target previously
 
             }
-            pos_prev = pos
+            pos_prev = Some(pos)
         }
     }
 
