@@ -43,7 +43,14 @@ implementation of the tracking strategy. The limitation of only one ultrasonic
 sensor presented a significant obstacle that required more complex tracking
 techniques to overcome. These techniques employed trigonometric functions that
 allowed us to calculate the trajectory of the target using limited information.
-Another challenge we faced was the use of Scala to write our programs. Despite
-the divergence from our previous use of Java and Eclipse to write and build our
-programs, we were able to successfully write, build, and upload Scala programs
-that ran on our Mindstorms robot.
+
+Other challenges we faced were related to the use of Scala to write our programs. We chose 
+to program in Scala rather than Java, as we preferred its' syntax and the expressivity
+benefits of functional programming. Since Scala programs run on the Java Virtual Machine, 
+an EV3 robot running LeJOS is able to execute them. While we found that programming in Scala 
+rather than Java had many benefits, we had issues with the use of tools other than the LeJOS
+Eclipse plugin for managing our programs. It was very difficult to configure the SBT build tool
+to correctly build jar files suitable for deployment on the EV3 robot, and to configure SBT to 
+generate two separate jar files for our two programs. Despite the divergence from our previous 
+use of Java and Eclipse to write and build our programs, we were able to successfully write, 
+build, and upload Scala programs that ran on our Mindstorms robot.
