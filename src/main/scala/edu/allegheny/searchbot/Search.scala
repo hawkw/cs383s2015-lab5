@@ -51,6 +51,12 @@ object Search {
         }
     }
 
+    /**
+     * Takes a polar-form vector (magnitude, angle) and uses trig
+     * to derive cartesian coordinates (with our robot's position as origin)
+     * @param v polar vector to be transformed
+     * @return (x,y) where x and y are derived from the components of v
+     */
     def toCartesian(v: Vector): Coordinate = {
         v match { case (r, theta) => (
             r * Math.cos(theta.asInstanceOf[Double]).asInstanceOf[Float],
@@ -58,6 +64,14 @@ object Search {
             ) }
     }
 
+    /**
+     * given two (x,y) coordinates, use their components to extrapolate
+     * a further location along the line between them, whose distance from loc2
+     * is equal to the distance between loc2 and loc1
+     * @param loc1 first coordinate
+     * @param loc2 second coordinate
+     * @return new (x,y) coordinate
+     */
     def estimateDestination(loc1: Coordinate, loc2: Coordinate): Coordinate = {
         (loc1, loc2) match { case ((x1,y1), (x2,y2)) =>
             val deltaX = x2 - x1
@@ -65,12 +79,27 @@ object Search {
             (x2 + deltaX, y2 + deltaY) }
     }
 
+    /**
+     * Standard euclidean distance function. (Probably should've used
+     * some library for this?)
+     * @param loc1 first coordinate
+     * @param loc2 second coordinate
+     * @return     distance between the two coordinates
+     */
     def distance(loc1: Coordinate, loc2: Coordinate): Float = {
         (loc1, loc2) match {
         case((x1,y1),(x2,y2)) => Math.sqrt(((x2 - x1)~*2 + (y2 - y1)~*2).asInstanceOf[Double]).asInstanceOf[Float] }
     }
 
-    def getHeadingAngle(loc1: Coordinate, loc2: Coordinate): Float = {
+    /**
+     * Returns the difference between the headings when our robot faces loc1 and
+     * loc2. Used as a helper function for calculating the distance our robot
+     * needs to turn to face a new location.
+     * @param loc1 first coordinate
+     * @param loc2 second coordinate
+     * @return     difference in heading between the two
+     */
+    def getHeadingDifference(loc1: Coordinate, loc2: Coordinate): Float = {
         val a = distance(loc2,loc1)
         val b = distance(loc2,(0,0))
         val c = distance(loc1,(0,0))
