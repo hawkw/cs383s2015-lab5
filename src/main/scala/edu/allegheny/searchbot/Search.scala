@@ -29,8 +29,8 @@ object Search {
     type Vector     = Tuple2[Float,Float]
     type Coordinate = Tuple2[Float,Float]
 
-    def turnAndRange(angle: Int): Option[Vector] = {
-        pilot rotate angle
+    def turnAndRange(angle: Double, direction: Int): Option[Vector] = {
+        pilot rotate (angle * direction)
         range
     }
 
@@ -107,14 +107,27 @@ object Search {
 
     def main (argv: Array[String]): Unit = {
         var pos_prev: Option[Coordinate] = None
+        var direction = 1
         for {
             angle <- 0 until MaxIter
-            pos <- turnAndRange(angle) map(toCartesian _)
+            pos <- turnAndRange(angle, direction) map(toCartesian _)
         } { // if we've spotted the target
             pos_prev foreach { // if we've spotted the target previously
-                (pos_prev) => ???
+                (pos_prev) =>
+                    Stream continually ( // as long as we can still see the target
+                        turnAndRange(
+                            getHeadingDifference(
+                                pos_prev,
+                                estimateDestination(pos_prev, pos)
+                            ),
+                            direction
+                        )
+                    ) takeWhile(_ isDefined)
             }
-            pos_prev = Some(pos)
+            // once we've fallen through the foreach, that means that
+            // we've lost sight of the target.
+            pos_prev = Some(pos) // in that case, set the previos position to the current one
+            direction *= -1      // and flip the direction
         }
     }
 
