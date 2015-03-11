@@ -107,11 +107,15 @@ object Search {
     }
 
     def main (argv: Array[String]): Unit = {
+        var pos_prev: Option[Coordinate] = None
         for {
             angle <- 0 until MaxIter
-            vec <- turnAndRange(angle)
-        } {
-            //val vec = turnAndRange angle
+            pos <- toCartesian turnAndRange(angle)
+        } { // if we've spotted the target
+            pos_prev foreach { // if we've spotted the target previously
+                // TODO: estimate heading & rotate
+            }
+            pos_prev = pos
         }
     }
 
