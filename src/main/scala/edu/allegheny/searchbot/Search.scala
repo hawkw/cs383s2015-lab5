@@ -112,7 +112,7 @@ object Search {
             pos <- turnAndRange(angle) map(toCartesian _)
         } { // if we've spotted the target
             pos_prev foreach { // if we've spotted the target previously
-
+                (pos_prev) => ???
             }
             pos_prev = Some(pos)
         }
